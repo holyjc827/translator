@@ -1,6 +1,9 @@
 int main()
 {
-    int number;
+    int number=0;
     printf("test");
+    while(true)
+    {
+    }
     return 0;
 }

@@ -275,6 +275,6 @@ dmypy.json
 .prof
 
 text.py
-text.cpp
+test.cpp
 
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,macos,python
