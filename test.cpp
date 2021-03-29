@@ -4,6 +4,10 @@ int main()
     printf("test");
     while(true)
     {
+        if(number == 0)
+        {
+            break;
+        }
     }
     return 0;
 }
