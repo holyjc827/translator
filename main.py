@@ -53,10 +53,9 @@ class Translator:
     def none(self, line, file_out):
         if search(';', line):
             f = line.split(';')[0].split()
-            newline = ""
-            for word in f:
-                newline = newline + " " + word
-            print(newline)
+            newline = f[0]
+            for word in range(0,len(f)-1):
+                newline = newline + " " + str(word)
             with open(file_out, 'a') as l:
                 l.writelines("%s\n" % (self.indent*self.indentNum + newline))
 
@@ -66,10 +65,10 @@ class Translator:
             f = line.split(';')[0].split()
             newline = ""
             for word in f:
+                word = word.split()[0]
                 newline = newline + " " + word
             with open(file_out, 'a') as l:
                 c = newline.split('}')[0].strip(')\n')
-                print(c)
                 l.writelines("%s\n" % (self.indent*self.indentNum + c))
             return True
         return False
@@ -82,13 +81,32 @@ class Translator:
             return True
         return False 
 
+    def importing(self, line, file_out):
+        if search('#include', line):
+            if search('<', line):
+                with open(file_out, 'a') as l:
+                    l.writelines("%s\n" % (self.indent*self.indentNum))
+                return True
+        return False
+
+    def vector(self, line, file_out):
+        if search ("std::vector", line):
+            with open(file_out, 'a') as l:
+                c = line.split('>')[1].split()[0].split(';')[0]
+                print(c)
+                l.writelines("%s\n" % (self.indent * self.indentNum + c + " = []"))
+            return True
+        return False
 
 if __name__ == '__main__':
     app = Translator()
     file = open("test.cpp","r")
     for line in file:
-        print(app.indentNum)
-        if app.printf(line, "text.py") == True:
+        if app.importing(line, "text.py") == True:
+            continue
+        elif app.vector(line, "text.py") == True:
+            continue
+        elif app.printf(line, "text.py") == True:
             continue
         elif app.int_func(line, "text.py") == True:
             continue

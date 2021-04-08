@@ -1,3 +1,5 @@
+#include <vector>
+
 int main()
 {
     int number=0;
@@ -8,6 +10,11 @@ int main()
         {
             break;
         }
+    }
+    std::vector<int, std::string> chu;
+    for(int i = 0; i < chu.size(); i++)
+    {
+        printf("yes");
     }
     return 0;
 }
