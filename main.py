@@ -9,7 +9,7 @@ class Translator:
         if search("printf", line):
             s = line.split("(")[1].split(")")
             with open(file_out, 'a') as l:
-                    l.writelines("%s\n" % ("print(" + s[0] + ")"))
+                    l.writelines("%s\n" % (self.indent*self.indentNum + "print(" + s[0] + ")"))
             return True
         return False
 
@@ -39,6 +39,14 @@ class Translator:
                 l.writelines("%s\n" % (self.indent*self.indentNum + "while " + f + " : "))
             self.indentNum += 1
             return True
+        elif search('for', line) != None:
+            if search("size", line) != None:
+                f = line.split(".")[0].split()[-1]
+                with open(file_out, 'a') as l:
+                    l.writelines("%s\n" % (self.indent*self.indentNum + "for _ in " + f + " : "))
+            self.indentNum += 1
+            print(self.indentNum)
+            return True    
         return False
 
     def conditional(self, line, file_out):
@@ -93,7 +101,6 @@ class Translator:
         if search ("std::vector", line):
             with open(file_out, 'a') as l:
                 c = line.split('>')[1].split()[0].split(';')[0]
-                print(c)
                 l.writelines("%s\n" % (self.indent * self.indentNum + c + " = []"))
             return True
         return False
@@ -106,13 +113,13 @@ if __name__ == '__main__':
             continue
         elif app.vector(line, "text.py") == True:
             continue
+        elif app.loop(line, "text.py") == True:
+            continue
         elif app.printf(line, "text.py") == True:
             continue
         elif app.int_func(line, "text.py") == True:
             continue
         elif app.conditional(line, "text.py") == True:
-            continue
-        elif app.loop(line, "text.py") == True:
             continue
         elif app.opening(line, "text.py") == True:
             continue
