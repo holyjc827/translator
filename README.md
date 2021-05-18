@@ -4,8 +4,7 @@ This repository is for a small, simple project which aims to convert a simple c+
 
 Example : 
 
-#C++ code :                                  Python:
-
+    #C++                                     #Python
     int number = 0;                          number = 0
     printf("test");                          print("test")
     while(true)                              while True:
